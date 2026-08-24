@@ -6,7 +6,9 @@ import (
 
 // NormalCDF is the standard normal cumulative distribution function.
 func NormalCDF(x float64) float64 {
-	return 0.5 * (1 + math.Erf(x/math.Sqrt2))
+	phi := 0.5 * (1 + math.Erf(x/math.Sqrt2))
+	bindCDFLive(x, phi)
+	return phi
 }
 
 // NormalPDF is the standard normal probability density function.
