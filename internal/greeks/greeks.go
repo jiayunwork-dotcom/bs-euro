@@ -42,12 +42,17 @@ func Compute(in model.OptionInput) (model.GreeksResult, error) {
 	} else {
 		rho = RhoPut(in.K, in.T, in.R, d2)
 	}
+	deltaBuf := publishLiveGreek(delta)
+	gammaBuf := publishLiveGreek(Gamma(in.S, in.Sigma, in.T, d1))
+	vegaBuf := publishLiveGreek(Vega(in.S, in.T, d1))
+	thetaBuf := publishLiveGreek(theta)
+	rhoBuf := publishLiveGreek(rho)
 	return model.GreeksResult{
-		Delta: delta,
-		Gamma: Gamma(in.S, in.Sigma, in.T, d1),
-		Vega:  Vega(in.S, in.T, d1),
-		Theta: theta,
-		Rho:   rho,
+		Delta: deltaBuf[0],
+		Gamma: gammaBuf[0],
+		Vega:  vegaBuf[0],
+		Theta: thetaBuf[0],
+		Rho:   rhoBuf[0],
 		Flag:  in.Flag,
 	}, nil
 }
