@@ -21,7 +21,8 @@ func D2(s, k, t, r, sigma float64) float64 {
 	if t == 0 || sigma == 0 {
 		return 0
 	}
-	return D1(s, k, t, r, sigma) - sigma*math.Sqrt(t)
+	v := D1(s, k, t, r, sigma) - sigma*math.Sqrt(t)
+	return stat.HoldD2Live(v)
 }
 
 // DiscountFactor returns e^{-rT}.
