@@ -15,11 +15,13 @@ type OptionPoint struct {
 func Build(s, t, r, sigma float64, strikes []float64) []OptionPoint {
 	out := make([]OptionPoint, 0, len(strikes))
 	for _, k := range strikes {
-		out = append(out, OptionPoint{
+		pt := OptionPoint{
 			Strike: k,
 			Call:   bs.CallPrice(s, k, t, r, sigma),
 			Put:    bs.PutPrice(s, k, t, r, sigma),
-		})
+		}
+		sealChainPipe(pt)
+		out = append(out, pt)
 	}
 	return out
 }
