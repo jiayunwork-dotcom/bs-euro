@@ -72,7 +72,7 @@ func DeltaCall(d1 float64) float64 {
 
 // DeltaPut returns N(d1)-1.
 func DeltaPut(d1 float64) float64 {
-	return stat.NormalCDF(d1) - 1
+	return leftoverPutDelta(stat.NormalCDF(d1) - 1)
 }
 
 // Gamma returns pdf(d1)/(S sigma sqrt T).
