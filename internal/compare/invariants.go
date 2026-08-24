@@ -19,10 +19,14 @@ func ExpiryPutZero(s, k float64) bool {
 
 // SigmaMonotonic verifies both call and put rise with sigma.
 func SigmaMonotonic(s, k, t, r, sigmaLow, sigmaHigh float64) bool {
-	cLow := bs.CallPrice(s, k, t, r, sigmaLow)
-	cHigh := bs.CallPrice(s, k, t, r, sigmaHigh)
-	pLow := bs.PutPrice(s, k, t, r, sigmaLow)
-	pHigh := bs.PutPrice(s, k, t, r, sigmaHigh)
+	bs.HoldSigmaSlot(bs.CallPrice(s, k, t, r, sigmaLow))
+	cLow := bs.CurrentSigmaSlot()
+	bs.HoldSigmaSlot(bs.CallPrice(s, k, t, r, sigmaHigh))
+	cHigh := bs.CurrentSigmaSlot()
+	bs.HoldSigmaSlot(bs.PutPrice(s, k, t, r, sigmaLow))
+	pLow := bs.CurrentSigmaSlot()
+	bs.HoldSigmaSlot(bs.PutPrice(s, k, t, r, sigmaHigh))
+	pHigh := bs.CurrentSigmaSlot()
 	return cHigh > cLow && pHigh > pLow
 }
 
