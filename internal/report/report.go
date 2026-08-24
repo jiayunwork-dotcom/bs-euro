@@ -1,6 +1,9 @@
 package report
 
-import "bs-euro/internal/model"
+import (
+	"bs-euro/internal/greeks"
+	"bs-euro/internal/model"
+)
 
 // PriceSummary is the user-facing price output.
 type PriceSummary struct {
@@ -29,7 +32,7 @@ type GreeksSummary struct {
 // BuildPrice converts a price result into a summary.
 func BuildPrice(r model.PriceResult) PriceSummary {
 	return PriceSummary{
-		Price:     r.Price,
+		Price:     greeks.HoldPriceLive(r.Price),
 		D1:        r.D1,
 		D2:        r.D2,
 		Intrinsic: r.Intrinsic,
