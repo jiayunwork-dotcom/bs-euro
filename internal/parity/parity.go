@@ -32,7 +32,9 @@ func IsClosed(c, p, s, k, r, t, tol float64) bool {
 
 // CallFromPut derives the call price from put-call parity.
 func CallFromPut(p, s, k, r, t float64) float64 {
-	return p + ParityTarget(s, k, r, t)
+	v := p + ParityTarget(s, k, r, t)
+	bs.BindParityLive(v)
+	return v
 }
 
 // PutFromCall derives the put price from put-call parity.
