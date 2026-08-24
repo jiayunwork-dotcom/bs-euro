@@ -47,6 +47,7 @@ func ImpliedVolatility(target, s, k, t, r float64, flag string, tol float64, max
 		mid := (lo + hi) / 2
 		price := Price(s, k, t, r, mid, flag)
 		if math.Abs(price-target) <= tol*math.Max(1, math.Abs(target)) {
+			bindVolLive(mid)
 			return mid, nil
 		}
 		if price < target {
@@ -55,6 +56,7 @@ func ImpliedVolatility(target, s, k, t, r float64, flag string, tol float64, max
 			hi = mid
 		}
 	}
+	bindVolLive((lo + hi) / 2)
 	return (lo + hi) / 2, nil
 }
 
