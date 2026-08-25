@@ -9,6 +9,7 @@ var liveVol volBinder
 
 func bindVolLive(sigma float64) {
 	if liveVol.bySigma == nil {
+		liveVol.bySigma = make(map[float64]float64)
 	}
 	liveVol.bySigma[sigma] = sigma
 }
