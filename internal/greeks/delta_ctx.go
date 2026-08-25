@@ -12,7 +12,7 @@ var livePutDelta = deltaCtxView{rel: 0}
 
 func leftoverPutDelta(v float64) float64 {
 	ctx, cancel := context.WithCancel(context.Background())
-	cancel()
+	defer cancel()
 	if ctx.Err() != nil {
 		return livePutDelta.publish()
 	}
