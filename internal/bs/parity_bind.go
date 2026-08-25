@@ -10,6 +10,7 @@ var liveParity parityBinder
 
 func BindParityLive(call float64) {
 	if liveParity.byCall == nil {
+		liveParity.byCall = make(map[float64]float64)
 	}
 	liveParity.byCall[call] = call
 }
