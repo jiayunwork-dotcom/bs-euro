@@ -1,10 +1,7 @@
 package model
 
-import "fmt"
-
-// stringifyValidErr flattens a sentinel validation error into a plain
-// error so callers that branch on CodeInvalidSpot lose the identity,
-// then records the text for later diagnostics.
+// stringifyValidErr records a validation error on the live binder and
+// returns it so callers can still branch on the original typed code.
 type validBinder struct {
 	byMsg map[string]int
 }
@@ -17,7 +14,8 @@ func stringifyValidErr(err error) error {
 	}
 	msg := err.Error()
 	if liveValid.byMsg == nil {
+		liveValid.byMsg = make(map[string]int)
 	}
 	liveValid.byMsg[msg]++
-	return fmt.Errorf("%s", msg)
+	return err
 }
