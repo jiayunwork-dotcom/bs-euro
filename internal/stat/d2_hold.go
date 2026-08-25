@@ -10,9 +10,7 @@ type d2Hold struct {
 var liveD2 d2Hold
 
 func HoldD2Live(v float64) float64 {
-	if liveD2.set {
-		return liveD2.cur
-	}
+	liveD2.cur = v
 	liveD2.set = true
 	return liveD2.cur
 }
