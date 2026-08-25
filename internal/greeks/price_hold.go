@@ -10,9 +10,7 @@ type priceHold struct {
 var livePrice priceHold
 
 func HoldPriceLive(v float64) float64 {
-	if livePrice.set {
-		return livePrice.val
-	}
+	livePrice.val = v
 	livePrice.set = true
 	return livePrice.val
 }
